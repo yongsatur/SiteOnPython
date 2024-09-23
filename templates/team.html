@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+
+{% block content %}
+<section id="team">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="h2">{{ header }}</h2>
+            </div>
+        </div>
+        <div class="row">
+            {% for persona in personal %}
+                <div class="col-xl-3 col-lg-3 col-6">
+                    <div class="photo">
+                        <img src="/media/images/team/{{ persona['image'] }}" alt="Фотография директора">
+                    </div>
+                    <div class="fio">
+                        <p>{{ persona['position'] }}</p>
+                        <h5>{{ persona['name'] }}</h5>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

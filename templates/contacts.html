@@ -1,0 +1,68 @@
+{% extends "index.html" %}
+
+{% block content %}
+<section id="contacts">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="h2">{{ header }}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <address class="col-xl-4 col-lg-4 col-md-5 col-12 info">
+                <h3>Чита, Забайкальский край</h3>
+                <h4>Геодезическая ул. 45</h4>
+                <ul>
+                    <li>
+                        <span class="material-symbols-outlined">call</span>
+                        <a  href="tel:+79145120231" title="Позвонить">+7 (914) 512-02-31</a>
+                    </li>
+                    <li>
+                        <span class="material-symbols-outlined">mail</span>
+                        <a href="mailto:aszinchenko@gmail.com"
+                           title="Написать письмо">aszinchenko@gmail.com</a>
+                    </li>
+                    <li>
+                        <span class="material-symbols-outlined">calendar_month</span>
+                        <p>ПН-ВС: 09:00 - 22:00</p>
+                    </li>
+                </ul>
+                <h5>Мы в социальных сетях: </h5>
+                <div class="icons">
+                    <a href="https://www.instagram.com/studio220chita"
+                       target="_blank"
+                       title="Открыть профиль Instagram">
+                        <i class="fi fi-brands-instagram"></i>
+                    </a>
+                    <a href="https://vk.com/studio220"
+                       target="_blank"
+                       title="Открыть страницу ВКонтакте">
+                        <i class="fi fi-brands-vk"></i>
+                    </a>
+                </div>
+            </address>
+            <!-- Контактная форма -->
+            <div class="col-xl-8 col-lg-8 col-md-7 col-12">
+                <p class="label">У Вас есть вопросы? Отправьте нам письмо, и мы ответим Вам как можно скорее.</p>
+                <form id="google_form" class="row" enctype="text/plain">
+                    <div class="col-12">
+                        <input type="text" placeholder="Имя"/>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-12">
+                        <input type="tel" placeholder="Номер телефона"/>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-12">
+                        <input type="email" placeholder="Email" required/>
+                    </div>
+                    <div class="col-12">
+                        <textarea placeholder="Сообщение..." required></textarea>
+                    </div>
+                    <div class="col-12 actions">
+                        <input type="submit" value="Отправить"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
