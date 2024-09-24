@@ -1,31 +1,22 @@
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+import http.server
 from jinja2 import Environment, PackageLoader, select_autoescape
-
-personal = [
-    {
-        "name": "Андрей Зинченко",
-        "position": "Директор, фотограф",
-        "image": "1.jpg"
-    },
-    {
-        "name": "Анастасия Кузнецова",
-        "position": "Штатный фотограф",
-        "image": "2.jpg"
-    },
-    {
-        "name": "Виктория Грушецкая",
-        "position": "Штатный фотограф",
-        "image": "3.jpg"
-    },
-    {
-        "name": "Тамара Кузнецова",
-        "position": "Администратор",
-        "image": "4.jpg"
-    }
-]
+import json
+import os
 
 
-class MySiteHandler(SimpleHTTPRequestHandler):
+def load_personal():
+    if os.path.exists('./data/personal.json'):
+        with open('./data/personal.json', 'r', encoding='utf-8') as file:
+            return json.load(file)
+    return []
+
+
+def send_answer(answer):
+    with open('./data/answer.json', 'w', encoding='utf-8') as file:
+        json.dump({"answer": answer}, file, indent=4, ensure_ascii=False)
+
+
+class MySiteHandler(http.server.SimpleHTTPRequestHandler):
     env = Environment(
         loader = PackageLoader("main"),
         autoescape = select_autoescape(),
@@ -47,6 +38,24 @@ class MySiteHandler(SimpleHTTPRequestHandler):
             super().do_GET()
         else:
             self.render_404()
+
+
+    def do_POST(self):
+        if self.path == '/send_form':
+            content_length = int(self.headers['Content-Length'])
+            post_data_bytes = self.rfile.read(content_length)
+            post_data_string = post_data_bytes.decode('utf-8')
+            list_of_post_data = post_data_string.split('\r\n')
+
+            post_data_dict = {}
+
+            for item in list_of_post_data:
+                if item != '':
+                    key, value = item.split('=')
+                    post_data_dict[key] = value
+
+            send_answer(post_data_dict)
+            self.render_contacts()
 
 
     def render_404(self):
@@ -76,7 +85,8 @@ class MySiteHandler(SimpleHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
         self.end_headers()
-        body = self.env.get_template('team.html').render(header='Наша команда', personal=personal)
+        print(load_personal())
+        body = self.env.get_template('team.html').render(header='Наша команда', personal=load_personal())
         self.wfile.write(body.encode('utf-8'))
 
 
@@ -97,7 +107,7 @@ class MySiteHandler(SimpleHTTPRequestHandler):
 
 
 def run():
-    httpd = HTTPServer(('', 8000), MySiteHandler)
+    httpd = http.server.HTTPServer(('', 8000), MySiteHandler)
     print('Server start...')
     httpd.serve_forever()
 

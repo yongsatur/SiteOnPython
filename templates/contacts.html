@@ -41,21 +41,20 @@
                     </a>
                 </div>
             </address>
-            <!-- Контактная форма -->
             <div class="col-xl-8 col-lg-8 col-md-7 col-12">
                 <p class="label">У Вас есть вопросы? Отправьте нам письмо, и мы ответим Вам как можно скорее.</p>
-                <form id="google_form" class="row" enctype="text/plain">
+                <form id="google_form" class="row" method="POST" action="send_form" enctype="text/plain">
                     <div class="col-12">
-                        <input type="text" placeholder="Имя"/>
+                        <input name="name" type="text" placeholder="Имя"/>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-12">
-                        <input type="tel" placeholder="Номер телефона"/>
+                        <input name="phone" type="tel" placeholder="Номер телефона"/>
                     </div>
                     <div class="col-xl-6 col-lg-6 col-12">
-                        <input type="email" placeholder="Email" required/>
+                        <input name="email" type="email" placeholder="Email" required/>
                     </div>
                     <div class="col-12">
-                        <textarea placeholder="Сообщение..." required></textarea>
+                        <textarea name="message" placeholder="Сообщение..." required></textarea>
                     </div>
                     <div class="col-12 actions">
                         <input type="submit" value="Отправить"/>
